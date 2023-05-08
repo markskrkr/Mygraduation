@@ -22,28 +22,26 @@ def load_graph(filename):
     return graph_list
 
 def networkx_to_pyg(graph):
-    # 为每个节点提取特征并将它们转换为torch.Tensor
+
     features = torch.tensor([features["feature"] for _, features in graph.nodes(data=True)], dtype=torch.float).view(-1, 1)
 
-    # 从networkx图转换为PyTorch Geometric图
     pyg_graph = from_networkx(graph)
 
-    # 为PyTorch Geometric图分配节点特征
     pyg_graph.x = features
 
     return pyg_graph
 
 graph_list = load_graph("D:/毕业设计/Scripts/graph_list.pickle")
-# 假设loaded_graph_list包含1941个图
+
 pyg_graph_list = [networkx_to_pyg(graph) for graph in graph_list]
 
-#labels标签
+
 for i, pyg_graph in enumerate(pyg_graph_list):
     pyg_graph.y = torch.tensor([labels[i]], dtype=torch.long)
 
 from torch_geometric.data import DataLoader
 random.shuffle(pyg_graph_list)
-# 将数据集划分为训练集和测试集
+
 train_dataset = pyg_graph_list[:int(len(pyg_graph_list) * 0.8)]
 test_dataset = pyg_graph_list[int(len(pyg_graph_list) * 0.8):]
 
@@ -87,7 +85,7 @@ lr_scheduler_gamma = 0.5
 model = GAT(num_features=1, num_classes=7, num_layers=num_layers, num_heads=num_heads, hidden_dim=hidden_dim, dropout=dropout).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
-# 训练和测试函数
+
 def train():
     model.train()
     total_loss = 0
@@ -112,7 +110,7 @@ def My_test(loader):
         pred = out.argmax(dim=1)
         correct += (pred == data.y).sum().item()
     return correct / len(loader.dataset)
-# 训练模型并测试准确率
+
 for epoch in range(num_epochs):
     train_loss = train()
     train_acc = My_test(train_loader)

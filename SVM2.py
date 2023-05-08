@@ -25,8 +25,8 @@ import seaborn as sns
 sns.set_theme(style="whitegrid")
 df = pd.read_csv('D:/毕业设计/faults_origin.csv')
 
-df1 = df.loc[:,"Pastry":]  # 7种不同的类型
-df2 = df.loc[:,:"SigmoidOfAreas"]  # 全部是特征字段
+df1 = df.loc[:,"Pastry":]
+df2 = df.loc[:,:"SigmoidOfAreas"]
 columns = df1.columns.tolist()
 for i in range(len(df1)):
     for col in columns:
@@ -79,7 +79,7 @@ clf.fit(X_train, y_train)
 
 test_result = clf.predict(X_test)
 
-# 混淆矩阵可视化
+
 cm = confusion_matrix(y_test, test_result)
 plt.figure(figsize=(8, 6))
 sns.heatmap(cm, annot=True, fmt='d', cmap='YlGnBu', cbar=False, xticklabels=dic.keys(), yticklabels=dic.keys())
@@ -88,7 +88,7 @@ plt.ylabel('True Label')
 plt.title('Confusion Matrix for SVM')
 plt.show()
 
-# 支持向量数量可视化
+
 support_vectors_counts = [len(clf.estimators_[i].support_vectors_) for i in range(len(clf.estimators_))]
 plt.figure(figsize=(8, 6))
 sns.barplot(x=list(dic.keys()), y=support_vectors_counts)

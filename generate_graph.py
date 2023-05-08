@@ -21,11 +21,11 @@ y = df2.iloc[:, -1]
 def build_graph(sample):
     G = nx.Graph()
 
-    # 添加节点
+
     for idx, (feature, value) in enumerate(sample.items()):
         G.add_node(idx, name=feature, feature=value)
 
-    # 添加边
+
     edges_group_1 = ["X_Minimum", "X_Maximum", "Y_Minimum", "Y_Maximum", "Pixels_Areas", "X_Perimeter", "Y_Perimeter",
                      "SigmoidOfAreas","Sum_of_Luminosity", "Minimum_of_Luminosity", "Maximum_of_Luminosity", "Luminosity_Index","Length_of_Conveyer",
                      "TypeOfSteel_A300", "TypeOfSteel_A400", "Steel_Plate_Thickness","Edges_Index", "Empty_Index", "Square_Index", "Outside_X_Index", "Edges_X_Index", "Edges_Y_Index",
@@ -39,11 +39,11 @@ def build_graph(sample):
 def build_graph_list(sample):
     G = nx.Graph()
 
-    # 添加节点
+
     for idx, (feature, value) in enumerate(sample.items()):
         G.add_node(idx, name=feature, feature=value)
 
-    # 添加边
+
     edges_group_1 = ["X_Minimum", "X_Maximum", "Y_Minimum", "Y_Maximum", "Pixels_Areas", "X_Perimeter", "Y_Perimeter",
                      "SigmoidOfAreas","Sum_of_Luminosity", "Minimum_of_Luminosity", "Maximum_of_Luminosity", "Luminosity_Index","Length_of_Conveyer",
                      "TypeOfSteel_A300", "TypeOfSteel_A400", "Steel_Plate_Thickness","Edges_Index", "Empty_Index", "Square_Index", "Outside_X_Index", "Edges_X_Index", "Edges_Y_Index",
@@ -53,13 +53,13 @@ def build_graph_list(sample):
         G.add_edge(sample.index.get_loc(edges_group_1[i]), sample.index.get_loc(edges_group_1[i + 1]))
 
     return G
-# 用一个样本构建图
+
 
 sample = X.iloc[0]
 
 G = build_graph(sample)
 
-# 打印图结构
+
 #print(G.nodes(data=True))
 print(G.edges)
 print(G)

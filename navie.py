@@ -46,21 +46,18 @@ X_train, X_test, y_train, y_test = train_test_split(X,
 
 nb = GaussianNB(var_smoothing=1e-9)
 
-# 训练朴素贝叶斯分y类器
+
 nb.fit(X_train, y_train)
 
-# 在测试集上进行预测
+
 y_pred = nb.predict(X_test)
 
-# 计算分类准确率
+
 result = classification_report(y_test,y_pred,output_dict=True)
 df = pd.DataFrame.from_dict(classification_report(y_test, y_pred, output_dict=True)).round(2)
 df_transposed = df.transpose()
 df_transposed.to_csv("D:/result_Naive.csv", index=True)
 # 添加可视化部分
-# 1. 条件概率表（CPT）可视化
-# 注意：因为我们使用的是GaussianNB，所以条件概率表不能直接获得，但我们可以使用均值和方差
-# 来构建一个近似的CPT。
 means = nb.theta_
 variances = nb.sigma_
 n_classes = len(np.unique(y))
@@ -76,8 +73,8 @@ ax.legend()
 plt.show()
 
 # 2. 敏感性分析
-# 改变一个特征的值，查看对预测概率的影响
-selected_feature_index = 0  # 选择一个特征进行敏感性分析
+
+selected_feature_index = 0
 min_value, max_value = X.iloc[:, selected_feature_index].min(), X.iloc[:, selected_feature_index].max()
 step = (max_value - min_value) / 100
 feature_values = np.arange(min_value, max_value, step)

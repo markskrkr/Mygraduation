@@ -44,7 +44,7 @@ params = {
     'boosting_type': 'gbdt',  
     'objective': 'multiclass',  
     'num_class': 7,  
-    'metric': 'multi_error',  # 将metric改为multi_error
+    'metric': 'multi_error',
     'num_leaves': 200,  
     'min_data_in_leaf': 20,  
     'learning_rate': 0.0033,
@@ -57,7 +57,7 @@ params = {
     'verbose': -1,
     'num_threads':4,
     'max_depth':15,
-    'eval_metric': 'multi_logloss' # 将eval_metric改为multi_logloss
+    'eval_metric': 'multi_logloss'
 }
 
 stdsc = StandardScaler()

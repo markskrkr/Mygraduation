@@ -47,16 +47,16 @@ X_train, X_test, y_train, y_test = train_test_split(X,
 
 params = {
     'booster': 'gbtree',
-    'objective': 'multi:softmax',  # 多分类的问题
-    'num_class': 7,               # 类别数，与 multisoftmax 并用
-    'gamma': 0.2,                  # 用于控制是否后剪枝的参数,越大越保守，一般0.1、0.2这样子。
-    'max_depth': 8,               # 构建树的深度，越大越容易过拟合
-    'lambda': 2,                   # 控制模型复杂度的权重值的L2正则化项参数，参数越大，模型越不容易过拟合。
-    'subsample': 0.9,              # 随机采样训练样本
-    'colsample_bytree': 0.5,       # 生成树时进行的列采样
-    'eta': 0.002,                  # 如同学习率
+    'objective': 'multi:softmax',
+    'num_class': 7,
+    'gamma': 0.2,
+    'max_depth': 8,
+    'lambda': 2,
+    'subsample': 0.9,
+    'colsample_bytree': 0.5,
+    'eta': 0.002,
     'seed': 42,
-    'nthread': 1,                  # cpu 线程数
+    'nthread': 1,
     'min_child_weight':0.5,
     'eval_metric':'auc',
     'colsample_bylevel': 0.5,  'tree_method': 'hist'

@@ -90,7 +90,7 @@ def extract_embeddings(loader):
 model = GAT(num_features=1, num_classes=7, num_layers=2, num_heads=4, hidden_dim=8, dropout=0.6).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.02, weight_decay=5e-4)
 
-# 训练GAT模型
+
 num_epochs = 10
 for epoch in range(num_epochs):
     model.train()
@@ -108,14 +108,13 @@ for epoch in range(num_epochs):
     train_loss = total_loss / len(train_loader)
     print(f'Epoch: {epoch + 1}, Loss: {train_loss:.4f}')
 
-# 提取嵌入表示
 
 train_embeddings, train_labels = extract_embeddings(train_loader)
 test_embeddings, test_labels = extract_embeddings(test_loader)
 
 print((len(train_embeddings)))
 
-# 使用xgboost分类器训练并评估模型
+
 
 xgb_classifier = xgb.XGBClassifier(n_estimators=500, max_depth=15, min_child_weight=6, reg_alpha=1, reg_lambda=1,learning_rate=0.02)
 eval_set = [(train_embeddings, train_labels), (test_embeddings, test_labels)]
@@ -130,12 +129,12 @@ test_acc = accuracy_score(test_labels, test_preds)
 print(f'Train Acc: {train_acc:.4f}, Test Acc: {test_acc:.4f}')
 import matplotlib.pyplot as plt
 
-# 从训练过程中提取准确率数据
+
 train_accuracy = [1 - x for x in xgb_classifier.evals_result_['validation_0']['merror']]
 test_accuracy = [1 - x for x in xgb_classifier.evals_result_['validation_1']['merror']]
 epochs = range(len(train_accuracy))
 
-# 使用matplotlib绘制折线图
+
 plt.plot(epochs, train_accuracy, label='Train')
 plt.plot(epochs, test_accuracy, label='Test')
 plt.xlabel('Epochs')
